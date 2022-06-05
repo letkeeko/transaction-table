@@ -66,15 +66,8 @@ const App = ({
     }
 
     // scenario: user has touched dropdown but selected empty
-    if (e.target.value === "") {
-      const filteredBySearch = getFilteredBySearch(searchTerm);
-      setTransactions(filteredBySearch);
-
-      return;
-    }
-
-    // // back to immutable list if none selected
-    // setTransactions(allTransactions);
+    // back to immutable list
+    setTransactions(allTransactions);
   };
 
   const handleSearch = () => {
