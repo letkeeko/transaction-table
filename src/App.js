@@ -18,8 +18,14 @@ const App = ({
   const [feedback, setFeedback] = useState(null);
 
   const handleFilterByCategory = (e) => {
-    // scenario: user selected from dropdown
     setSelectedCategory(e.target.value);
+
+    //  scenario: user selected back default category without touching search input
+    if (!isValidTerm(e.target.value) && !isValidTerm(searchTerm)) {
+      setTransactions(allTransactions);
+
+      return;
+    }
 
     // scenario: user dropdown selection is not empty
     if (isValidTerm(e.target.value)) {
@@ -47,33 +53,31 @@ const App = ({
 
       // scenario: user has type invalid search input
       if (!isValidTerm(searchTerm)) {
-        const filteredTransactions = allTransactions.filter((transaction) => {
-          return transaction.category === e.target.value;
-        });
+        const filteredByCategory = getFilteredByCategory(
+          e.target.value,
+          allTransactions
+        );
 
         // result is empty
-        if (filteredTransactions.length === 0) {
+        if (filteredByCategory.length === 0) {
           setTransactions(null);
 
           return;
         }
 
         // result is not empty
-        setTransactions(filteredTransactions);
+        setTransactions(filteredByCategory);
 
         return;
       }
     }
 
-    // scenario: user has touched dropdown but selected empty
-    // back to immutable list
-    setTransactions(allTransactions);
+    // scenario: user has search input and selected category but gone back to default
+    const filteredBySearch = getFilteredBySearch(searchTerm);
+    setTransactions(filteredBySearch);
   };
 
   const handleSearch = () => {
-    // resets feedback every search run
-    // if (!!feedback) setFeedback(null);
-
     // scenario: user selection and search input both empty
     if (!isValidTerm(searchTerm) && !isValidTerm(selectedCategory)) {
       setTransactions(allTransactions);
