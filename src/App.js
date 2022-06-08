@@ -130,8 +130,6 @@ const App = ({
 
       // result is not empty
       setTransactions(filteredByCategory);
-
-      return;
     }
   };
 
@@ -173,7 +171,7 @@ const App = ({
         } else {
           setFeedback(null);
         }
-      }, 650);
+      }, 400);
 
       // clear above function as user continues to type
       return () => clearTimeout(timeoutId);
