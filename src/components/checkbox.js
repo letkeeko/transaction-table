@@ -14,7 +14,8 @@ const Checkbox = ({ id, isChecked, isDisabled, onChange }) => {
     <Wrapper
       type="checkbox"
       data-id={id}
-      checked={isChecked}
+      data-ischecked={isChecked ? true : false}
+      checked={isChecked ? true : false}
       readOnly={!id}
       onChange={onChange}
       disabled={isDisabled}
