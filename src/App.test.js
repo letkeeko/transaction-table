@@ -255,7 +255,7 @@ describe("billable", () => {
 
   it("should be unchecked when it is false", () => {
     const completeTransaction = transactionsData.find(
-      ({ receipt }) => receipt === false
+      ({ billable }) => billable === false
     );
 
     renderApp({ transactions: [completeTransaction] });
